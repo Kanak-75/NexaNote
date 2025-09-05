@@ -144,35 +144,70 @@ const Calendar: React.FC<CalendarProps> = ({
   ];
 
   return (
-    <Box sx={{ p: 3, height: '100%' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-        <IconButton onClick={() => setCurrentDate(subMonths(currentDate, 1))}>
+    <Box sx={{ p: 4, height: '100%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', minHeight: '100vh' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+        <IconButton 
+          onClick={() => setCurrentDate(subMonths(currentDate, 1))}
+          sx={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+            color: 'white',
+            '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+          }}
+        >
           <ChevronLeft />
         </IconButton>
-        <Typography variant="h4" sx={{ flex: 1, textAlign: 'center', fontWeight: 600 }}>
+        <Typography 
+          variant="h3" 
+          sx={{ 
+            flex: 1, 
+            textAlign: 'center', 
+            fontWeight: 700, 
+            color: 'white',
+            textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+          }}
+        >
           {format(currentDate, 'MMMM yyyy')}
         </Typography>
-        <IconButton onClick={() => setCurrentDate(addMonths(currentDate, 1))}>
+        <IconButton 
+          onClick={() => setCurrentDate(addMonths(currentDate, 1))}
+          sx={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+            color: 'white',
+            '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+          }}
+        >
           <ChevronRight />
         </IconButton>
       </Box>
 
-      <Paper elevation={0} sx={{ border: '1px solid rgba(0, 0, 0, 0.12)' }}>
+      <Paper 
+        elevation={24} 
+        sx={{ 
+          borderRadius: 4,
+          overflow: 'hidden',
+          backgroundColor: 'background.paper',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+        }}
+      >
         <Grid container>
           {/* Day headers */}
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
             <Grid item xs key={day}>
               <Box
                 sx={{
-                  p: 2,
+                  p: 3,
                   textAlign: 'center',
-                  borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-                  borderRight: '1px solid rgba(0, 0, 0, 0.12)',
-                  backgroundColor: '#fafafa',
-                  fontWeight: 600,
+                  borderBottom: '2px solid',
+                  borderColor: 'divider',
+                  backgroundColor: 'primary.main',
+                  color: 'white',
+                  fontWeight: 700,
+                  fontSize: '1.1rem',
                 }}
               >
-                <Typography variant="body2">{day}</Typography>
+                <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                  {day}
+                </Typography>
               </Box>
             </Grid>
           ))}
@@ -187,35 +222,49 @@ const Calendar: React.FC<CalendarProps> = ({
               <Grid item xs key={day.toISOString()}>
                 <Box
                   sx={{
-                    minHeight: 120,
-                    p: 1,
-                    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-                    borderRight: '1px solid rgba(0, 0, 0, 0.12)',
-                    backgroundColor: isToday ? '#e3f2fd' : 'white',
+                    minHeight: 160,
+                    p: 2,
+                    borderBottom: '1px solid',
+                    borderRight: '1px solid',
+                    borderColor: 'divider',
+                    backgroundColor: isToday ? 'primary.light' : 'background.paper',
                     cursor: 'pointer',
+                    position: 'relative',
+                    transition: 'all 0.3s ease',
                     '&:hover': {
-                      backgroundColor: isToday ? '#bbdefb' : '#f5f5f5',
+                      backgroundColor: isToday ? 'primary.main' : 'action.hover',
+                      transform: 'scale(1.02)',
+                      zIndex: 1,
+                      boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
                     },
                   }}
                   onClick={() => handleDateClick(day)}
                 >
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                     <Typography
-                      variant="body2"
+                      variant="h5"
                       sx={{
-                        fontWeight: isToday ? 600 : 400,
+                        fontWeight: isToday ? 700 : 600,
                         color: isCurrentMonth ? 'text.primary' : 'text.disabled',
+                        fontSize: isToday ? '1.5rem' : '1.2rem',
                       }}
                     >
                       {format(day, 'd')}
                     </Typography>
-                    <IconButton size="small" sx={{ p: 0 }}>
-                      <Add sx={{ fontSize: 16 }} />
+                    <IconButton 
+                      size="small" 
+                      sx={{ 
+                        p: 0.5,
+                        backgroundColor: 'rgba(0,0,0,0.1)',
+                        '&:hover': { backgroundColor: 'rgba(0,0,0,0.2)' }
+                      }}
+                    >
+                      <Add sx={{ fontSize: 18 }} />
                     </IconButton>
                   </Box>
 
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                    {dayEvents.slice(0, 3).map((event) => (
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    {dayEvents.slice(0, 2).map((event) => (
                       <Chip
                         key={event.id}
                         label={event.title}
@@ -223,12 +272,15 @@ const Calendar: React.FC<CalendarProps> = ({
                         sx={{
                           backgroundColor: event.color,
                           color: 'white',
-                          fontSize: '0.7rem',
-                          height: 20,
+                          fontSize: '0.75rem',
+                          height: 24,
+                          fontWeight: 500,
                           '&:hover': {
                             backgroundColor: event.color,
-                            opacity: 0.8,
+                            opacity: 0.9,
+                            transform: 'scale(1.05)',
                           },
+                          transition: 'all 0.2s ease',
                         }}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -236,9 +288,20 @@ const Calendar: React.FC<CalendarProps> = ({
                         }}
                       />
                     ))}
-                    {dayEvents.length > 3 && (
-                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                        +{dayEvents.length - 3} more
+                    {dayEvents.length > 2 && (
+                      <Typography 
+                        variant="caption" 
+                        sx={{ 
+                          color: 'text.secondary',
+                          fontWeight: 500,
+                          backgroundColor: 'rgba(0,0,0,0.1)',
+                          px: 1,
+                          py: 0.5,
+                          borderRadius: 1,
+                          textAlign: 'center'
+                        }}
+                      >
+                        +{dayEvents.length - 2} more
                       </Typography>
                     )}
                   </Box>

@@ -181,12 +181,40 @@ const Tasks: React.FC<TasksProps> = ({
   };
 
   return (
-    <Box sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" sx={{ flex: 1, fontWeight: 600 }}>
+    <Box sx={{ 
+      p: 4, 
+      height: '100%', 
+      display: 'flex', 
+      flexDirection: 'column',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      minHeight: '100vh'
+    }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+        <Typography 
+          variant="h3" 
+          sx={{ 
+            flex: 1, 
+            fontWeight: 700, 
+            color: 'white',
+            textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            textAlign: 'center'
+          }}
+        >
           Tasks
         </Typography>
-        <IconButton onClick={handleNewTask} sx={{ backgroundColor: '#1976d2', color: 'white', '&:hover': { backgroundColor: '#1565c0' } }}>
+        <IconButton 
+          onClick={handleNewTask} 
+          sx={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+            color: 'white', 
+            '&:hover': { 
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              transform: 'scale(1.1)'
+            },
+            transition: 'all 0.2s ease',
+            ml: 2
+          }}
+        >
           <Add />
         </IconButton>
       </Box>

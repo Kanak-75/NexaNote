@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider, createTheme, IconButton, Tooltip } from '@mui/material';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { v4 as uuidv4 } from 'uuid';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
@@ -8,8 +9,9 @@ import Notes from './components/Notes';
 import Tasks from './components/Tasks';
 import { Task, Note, CalendarEvent, SidebarItem } from './types';
 
-const theme = createTheme({
+const lightTheme = createTheme({
   palette: {
+    mode: 'light',
     primary: {
       main: '#1976d2',
     },
@@ -18,6 +20,11 @@ const theme = createTheme({
     },
     background: {
       default: '#fafafa',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#212121',
+      secondary: '#757575',
     },
   },
   typography: {
@@ -28,21 +35,86 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          borderRadius: 8,
+          borderRadius: 12,
+          fontWeight: 500,
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
+          borderRadius: 16,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
+          borderRadius: 16,
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
+  },
+});
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#90caf9',
+    },
+    secondary: {
+      main: '#f48fb1',
+    },
+    background: {
+      default: '#121212',
+      paper: '#1e1e1e',
+    },
+    text: {
+      primary: '#ffffff',
+      secondary: '#b0b0b0',
+    },
+  },
+  typography: {
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
           borderRadius: 12,
+          fontWeight: 500,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
         },
       },
     },
@@ -54,12 +126,14 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [notes, setNotes] = useState<Note[]>([]);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   // Load data from localStorage on component mount
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
     const savedNotes = localStorage.getItem('notes');
     const savedEvents = localStorage.getItem('events');
+    const savedTheme = localStorage.getItem('darkMode');
 
     if (savedTasks) {
       setTasks(JSON.parse(savedTasks).map((task: any) => ({
@@ -81,6 +155,9 @@ function App() {
         endDate: new Date(event.endDate),
       })));
     }
+    if (savedTheme) {
+      setDarkMode(JSON.parse(savedTheme));
+    }
   }, []);
 
   // Save data to localStorage whenever it changes
@@ -96,8 +173,16 @@ function App() {
     localStorage.setItem('events', JSON.stringify(events));
   }, [events]);
 
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
+
   const handleSidebarItemClick = (item: SidebarItem) => {
     setCurrentView(item.id);
+  };
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
   };
 
   // Task handlers
@@ -216,22 +301,52 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <Box sx={{ display: 'flex', height: '100vh' }}>
         <Sidebar
           open={true}
           onClose={() => {}}
           onItemClick={handleSidebarItemClick}
+          darkMode={darkMode}
         />
         <Box
           component="main"
           sx={{
             flexGrow: 1,
-            backgroundColor: '#fafafa',
+            backgroundColor: 'background.default',
             overflow: 'hidden',
+            position: 'relative',
           }}
         >
+          {/* Theme Toggle Button */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 16,
+              right: 16,
+              zIndex: 1000,
+              display: currentView === 'notes' ? 'none' : 'block',
+            }}
+          >
+            <Tooltip title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
+              <IconButton
+                onClick={toggleDarkMode}
+                sx={{
+                  backgroundColor: 'background.paper',
+                  color: 'text.primary',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                  '&:hover': {
+                    backgroundColor: 'background.paper',
+                    transform: 'scale(1.05)',
+                  },
+                  transition: 'all 0.2s ease-in-out',
+                }}
+              >
+                {darkMode ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
+            </Tooltip>
+          </Box>
           {renderCurrentView()}
         </Box>
       </Box>

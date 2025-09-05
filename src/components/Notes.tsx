@@ -25,6 +25,8 @@ import {
   Search,
   Sort,
   FilterList,
+  Brightness4,
+  Brightness7,
 } from '@mui/icons-material';
 import { Note } from '../types';
 
@@ -141,30 +143,75 @@ const Notes: React.FC<NotesProps> = ({
   };
 
   return (
-    <Box sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" sx={{ flex: 1, fontWeight: 600 }}>
+    <Box sx={{ 
+      p: 4, 
+      height: '100%', 
+      display: 'flex', 
+      flexDirection: 'column',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      minHeight: '100vh'
+    }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+        <Typography 
+          variant="h3" 
+          sx={{ 
+            flex: 1, 
+            fontWeight: 700, 
+            color: 'white',
+            textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            textAlign: 'center'
+          }}
+        >
           Notes
         </Typography>
-        <IconButton onClick={handleNewNote} sx={{ backgroundColor: '#1976d2', color: 'white', '&:hover': { backgroundColor: '#1565c0' } }}>
+        <IconButton 
+          onClick={handleNewNote} 
+          sx={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+            color: 'white', 
+            '&:hover': { 
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              transform: 'scale(1.1)'
+            },
+            transition: 'all 0.2s ease',
+            ml: 2
+          }}
+        >
           <Add />
         </IconButton>
       </Box>
 
-      <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
+      <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
         <TextField
           placeholder="Search notes..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{ flex: 1 }}
+          sx={{ 
+            flex: 1,
+            '& .MuiOutlinedInput-root': {
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              borderRadius: 3,
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 1)',
+              }
+            }
+          }}
           InputProps={{
             startAdornment: <Search sx={{ mr: 1, color: 'text.secondary' }} />,
           }}
         />
-        <IconButton>
+        <IconButton sx={{ 
+          backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+          color: 'white',
+          '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+        }}>
           <Sort />
         </IconButton>
-        <IconButton>
+        <IconButton sx={{ 
+          backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+          color: 'white',
+          '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+        }}>
           <FilterList />
         </IconButton>
       </Box>
@@ -174,14 +221,19 @@ const Notes: React.FC<NotesProps> = ({
           {filteredNotes.map((note) => (
             <Grid item xs={12} sm={6} md={4} key={note.id}>
               <Paper
-                elevation={1}
+                elevation={8}
                 sx={{
-                  p: 2,
+                  p: 3,
                   cursor: 'pointer',
+                  borderRadius: 3,
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255,255,255,0.2)',
                   '&:hover': {
-                    elevation: 3,
-                    transform: 'translateY(-2px)',
-                    transition: 'all 0.2s ease-in-out',
+                    elevation: 12,
+                    transform: 'translateY(-8px) scale(1.02)',
+                    transition: 'all 0.3s ease-in-out',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
                   },
                 }}
                 onClick={() => handleNoteClick(note)}

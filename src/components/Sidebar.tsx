@@ -29,6 +29,7 @@ interface SidebarProps {
   open: boolean;
   onClose: () => void;
   onItemClick: (item: SidebarItem) => void;
+  darkMode: boolean;
 }
 
 const defaultItems: SidebarItem[] = [
@@ -77,7 +78,7 @@ const getIcon = (iconName: string) => {
   }
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick }) => {
+const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode }) => {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 
   const handleItemClick = (item: SidebarItem) => {
@@ -148,14 +149,14 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick }) => {
         '& .MuiDrawer-paper': {
           width: 280,
           boxSizing: 'border-box',
-          borderRight: '1px solid rgba(0, 0, 0, 0.12)',
-          backgroundColor: '#fafafa',
+          borderRight: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid rgba(0, 0, 0, 0.12)',
+          backgroundColor: darkMode ? '#1e1e1e' : '#fafafa',
         },
       }}
     >
       <Box sx={{ overflow: 'auto', height: '100%' }}>
-        <Box sx={{ p: 2, borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
-          <Typography variant="h6" sx={{ fontWeight: 600, color: '#333' }}>
+        <Box sx={{ p: 2, borderBottom: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid rgba(0, 0, 0, 0.12)' }}>
+          <Typography variant="h6" sx={{ fontWeight: 600, color: darkMode ? '#ffffff' : '#333' }}>
             Notion-like Calendar
           </Typography>
         </Box>
