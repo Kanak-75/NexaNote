@@ -7,24 +7,26 @@ import Dashboard from './components/Dashboard';
 import Calendar from './components/Calendar';
 import Notes from './components/Notes';
 import Tasks from './components/Tasks';
+import Settings from './components/Settings';
+import QuickNotes from './components/QuickNotes';
 import { Task, Note, CalendarEvent, SidebarItem } from './types';
 
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1976d2',
+      main: '#6366f1',
     },
     secondary: {
-      main: '#dc004e',
+      main: '#8b5cf6',
     },
     background: {
-      default: '#fafafa',
+      default: '#f8fafc',
       paper: '#ffffff',
     },
     text: {
-      primary: '#212121',
-      secondary: '#757575',
+      primary: '#1e293b',
+      secondary: '#64748b',
     },
   },
   typography: {
@@ -69,18 +71,18 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#90caf9',
+      main: '#818cf8',
     },
     secondary: {
-      main: '#f48fb1',
+      main: '#a78bfa',
     },
     background: {
-      default: '#121212',
-      paper: '#1e1e1e',
+      default: '#0f172a',
+      paper: '#1e293b',
     },
     text: {
-      primary: '#ffffff',
-      secondary: '#b0b0b0',
+      primary: '#f1f5f9',
+      secondary: '#94a3b8',
     },
   },
   typography: {
@@ -127,6 +129,8 @@ function App() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [showSettings, setShowSettings] = useState<boolean>(false);
+  const [showQuickNotes, setShowQuickNotes] = useState<boolean>(false);
 
   // Load data from localStorage on component mount
   useEffect(() => {
@@ -183,6 +187,14 @@ function App() {
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+  };
+
+  const handleSettingsClick = () => {
+    setShowSettings(true);
+  };
+
+  const handleQuickNotesClick = () => {
+    setShowQuickNotes(true);
   };
 
   // Task handlers
@@ -311,6 +323,8 @@ function App() {
           onClose={() => {}}
           onItemClick={handleSidebarItemClick}
           darkMode={darkMode}
+          onSettingsClick={handleSettingsClick}
+          onQuickNotesClick={handleQuickNotesClick}
         />
         <Box
           component="main"
@@ -321,35 +335,48 @@ function App() {
             position: 'relative',
           }}
         >
-          {/* Theme Toggle Button */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 16,
-              right: 16,
-              zIndex: 1000,
-              display: currentView === 'notes' ? 'none' : 'block',
-            }}
-          >
-            <Tooltip title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
-              <IconButton
-                onClick={toggleDarkMode}
-                sx={{
-                  backgroundColor: 'background.paper',
-                  color: 'text.primary',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                  '&:hover': {
+          {/* Theme Toggle Button - Only show when not in notes view */}
+          {currentView !== 'notes' && (
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                zIndex: 1000,
+              }}
+            >
+              <Tooltip title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
+                <IconButton
+                  onClick={toggleDarkMode}
+                  sx={{
                     backgroundColor: 'background.paper',
-                    transform: 'scale(1.05)',
-                  },
-                  transition: 'all 0.2s ease-in-out',
-                }}
-              >
-                {darkMode ? <Brightness7 /> : <Brightness4 />}
-              </IconButton>
-            </Tooltip>
-          </Box>
-          {renderCurrentView()}
+                    color: 'text.primary',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                    '&:hover': {
+                      backgroundColor: 'background.paper',
+                      transform: 'scale(1.05)',
+                    },
+                    transition: 'all 0.2s ease-in-out',
+                  }}
+                >
+                  {darkMode ? <Brightness7 /> : <Brightness4 />}
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
+          
+          {/* Render current view or modals */}
+          {showSettings ? (
+            <Settings
+              darkMode={darkMode}
+              onToggleDarkMode={toggleDarkMode}
+              onClose={() => setShowSettings(false)}
+            />
+          ) : showQuickNotes ? (
+            <QuickNotes onClose={() => setShowQuickNotes(false)} />
+          ) : (
+            renderCurrentView()
+          )}
         </Box>
       </Box>
     </ThemeProvider>

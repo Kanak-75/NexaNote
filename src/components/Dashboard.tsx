@@ -83,19 +83,17 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <Box sx={{ 
-      p: 4, 
+      p: 3, 
       height: '100%', 
       overflow: 'auto',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      minHeight: '100vh'
+      backgroundColor: 'background.default'
     }}>
       <Typography 
-        variant="h3" 
+        variant="h4" 
         sx={{ 
-          mb: 4, 
-          fontWeight: 700, 
-          color: 'white',
-          textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+          mb: 3, 
+          fontWeight: 600, 
+          color: 'text.primary',
           textAlign: 'center'
         }}
       >
@@ -106,28 +104,28 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* Stats Cards */}
         <Grid item xs={12} sm={6} md={3}>
           <Card 
-            elevation={8} 
+            elevation={2} 
             sx={{ 
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              color: 'white',
-              transform: 'translateY(0)',
-              transition: 'all 0.3s ease',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              transition: 'all 0.2s ease',
               '&:hover': {
-                transform: 'translateY(-8px)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
               }
             }}
           >
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <CheckCircle sx={{ color: '#4caf50', mr: 1, fontSize: 28 }} />
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>Tasks</Typography>
+                <CheckCircle sx={{ color: 'primary.main', mr: 1, fontSize: 24 }} />
+                <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>Tasks</Typography>
               </Box>
-              <Typography variant="h3" sx={{ mb: 1, fontWeight: 700 }}>
+              <Typography variant="h3" sx={{ mb: 1, fontWeight: 600, color: 'text.primary' }}>
                 {tasks.length}
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {completedTasks.length} completed
               </Typography>
               <LinearProgress
@@ -135,11 +133,11 @@ const Dashboard: React.FC<DashboardProps> = ({
                 value={tasks.length > 0 ? (completedTasks.length / tasks.length) * 100 : 0}
                 sx={{ 
                   mt: 2, 
-                  height: 8, 
-                  borderRadius: 4,
-                  backgroundColor: 'rgba(255,255,255,0.2)',
+                  height: 6, 
+                  borderRadius: 3,
+                  backgroundColor: 'action.hover',
                   '& .MuiLinearProgress-bar': {
-                    backgroundColor: '#4caf50'
+                    backgroundColor: 'primary.main'
                   }
                 }}
               />
@@ -149,28 +147,28 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         <Grid item xs={12} sm={6} md={3}>
           <Card 
-            elevation={8} 
+            elevation={2} 
             sx={{ 
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
-              color: 'white',
-              transform: 'translateY(0)',
-              transition: 'all 0.3s ease',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              transition: 'all 0.2s ease',
               '&:hover': {
-                transform: 'translateY(-8px)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
               }
             }}
           >
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Event sx={{ color: '#ffd93d', mr: 1, fontSize: 28 }} />
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>Events</Typography>
+                <Event sx={{ color: 'secondary.main', mr: 1, fontSize: 24 }} />
+                <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>Events</Typography>
               </Box>
-              <Typography variant="h3" sx={{ mb: 1, fontWeight: 700 }}>
+              <Typography variant="h3" sx={{ mb: 1, fontWeight: 600, color: 'text.primary' }}>
                 {events.length}
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {todayEvents.length} today
               </Typography>
             </CardContent>
@@ -179,28 +177,28 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         <Grid item xs={12} sm={6} md={3}>
           <Card 
-            elevation={8} 
+            elevation={2} 
             sx={{ 
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%)',
-              color: 'white',
-              transform: 'translateY(0)',
-              transition: 'all 0.3s ease',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              transition: 'all 0.2s ease',
               '&:hover': {
-                transform: 'translateY(-8px)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
               }
             }}
           >
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Notes sx={{ color: '#2d3436', mr: 1, fontSize: 28 }} />
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>Notes</Typography>
+                <Notes sx={{ color: 'primary.main', mr: 1, fontSize: 24 }} />
+                <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>Notes</Typography>
               </Box>
-              <Typography variant="h3" sx={{ mb: 1, fontWeight: 700 }}>
+              <Typography variant="h3" sx={{ mb: 1, fontWeight: 600, color: 'text.primary' }}>
                 {notes.length}
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {recentNotes.length} recent
               </Typography>
             </CardContent>
@@ -209,28 +207,28 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         <Grid item xs={12} sm={6} md={3}>
           <Card 
-            elevation={8} 
+            elevation={2} 
             sx={{ 
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%)',
-              color: 'white',
-              transform: 'translateY(0)',
-              transition: 'all 0.3s ease',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              transition: 'all 0.2s ease',
               '&:hover': {
-                transform: 'translateY(-8px)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
               }
             }}
           >
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <TrendingUp sx={{ color: '#2d3436', mr: 1, fontSize: 28 }} />
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>Progress</Typography>
+                <TrendingUp sx={{ color: 'secondary.main', mr: 1, fontSize: 24 }} />
+                <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>Progress</Typography>
               </Box>
-              <Typography variant="h3" sx={{ mb: 1, fontWeight: 700 }}>
+              <Typography variant="h3" sx={{ mb: 1, fontWeight: 600, color: 'text.primary' }}>
                 {tasks.length > 0 ? Math.round((completedTasks.length / tasks.length) * 100) : 0}%
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 Task completion
               </Typography>
             </CardContent>

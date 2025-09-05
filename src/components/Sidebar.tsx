@@ -151,14 +151,14 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode,
         '& .MuiDrawer-paper': {
           width: 280,
           boxSizing: 'border-box',
-          borderRight: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid rgba(0, 0, 0, 0.12)',
-          backgroundColor: darkMode ? '#1e1e1e' : '#fafafa',
+          borderRight: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
+          backgroundColor: darkMode ? '#1e293b' : '#f8fafc',
         },
       }}
     >
       <Box sx={{ overflow: 'auto', height: '100%' }}>
-        <Box sx={{ p: 2, borderBottom: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid rgba(0, 0, 0, 0.12)' }}>
-          <Typography variant="h6" sx={{ fontWeight: 600, color: darkMode ? '#ffffff' : '#333' }}>
+        <Box sx={{ p: 2, borderBottom: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)' }}>
+          <Typography variant="h6" sx={{ fontWeight: 600, color: darkMode ? '#f1f5f9' : '#1e293b' }}>
             Notion-like Calendar
           </Typography>
         </Box>
@@ -170,7 +170,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode,
         <Divider sx={{ my: 2 }} />
         
         <Box sx={{ px: 2, py: 1 }}>
-          <Typography variant="caption" sx={{ color: '#666', fontWeight: 500 }}>
+          <Typography variant="caption" sx={{ color: darkMode ? '#94a3b8' : '#64748b', fontWeight: 500 }}>
             FAVORITES
           </Typography>
         </Box>
@@ -182,14 +182,14 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode,
               onClick={onQuickNotesClick}
             >
               <ListItemIcon sx={{ minWidth: 40 }}>
-                <Star sx={{ fontSize: 20, color: darkMode ? '#b0b0b0' : '#666' }} />
+                <Star sx={{ fontSize: 20, color: darkMode ? '#94a3b8' : '#64748b' }} />
               </ListItemIcon>
               <ListItemText
                 primary="Quick Notes"
                 primaryTypographyProps={{
                   fontSize: 14,
                   fontWeight: 500,
-                  color: darkMode ? '#b0b0b0' : '#666',
+                  color: darkMode ? '#94a3b8' : '#64748b',
                 }}
               />
             </ListItemButton>
@@ -205,14 +205,14 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode,
               onClick={onSettingsClick}
             >
               <ListItemIcon sx={{ minWidth: 40 }}>
-                <Settings sx={{ fontSize: 20, color: darkMode ? '#b0b0b0' : '#666' }} />
+                <Settings sx={{ fontSize: 20, color: darkMode ? '#94a3b8' : '#64748b' }} />
               </ListItemIcon>
               <ListItemText
                 primary="Settings"
                 primaryTypographyProps={{
                   fontSize: 14,
                   fontWeight: 500,
-                  color: darkMode ? '#b0b0b0' : '#666',
+                  color: darkMode ? '#94a3b8' : '#64748b',
                 }}
               />
             </ListItemButton>

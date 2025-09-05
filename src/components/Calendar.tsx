@@ -144,26 +144,35 @@ const Calendar: React.FC<CalendarProps> = ({
   ];
 
   return (
-    <Box sx={{ p: 4, height: '100%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', minHeight: '100vh' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+    <Box sx={{ 
+      p: 3, 
+      height: '100%', 
+      backgroundColor: 'background.default',
+      overflow: 'auto'
+    }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <IconButton 
           onClick={() => setCurrentDate(subMonths(currentDate, 1))}
           sx={{ 
-            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-            color: 'white',
-            '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+            backgroundColor: 'background.paper',
+            color: 'text.primary',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            '&:hover': { 
+              backgroundColor: 'action.hover',
+              transform: 'scale(1.05)'
+            },
+            transition: 'all 0.2s ease'
           }}
         >
           <ChevronLeft />
         </IconButton>
         <Typography 
-          variant="h3" 
+          variant="h4" 
           sx={{ 
             flex: 1, 
             textAlign: 'center', 
-            fontWeight: 700, 
-            color: 'white',
-            textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+            fontWeight: 600, 
+            color: 'text.primary'
           }}
         >
           {format(currentDate, 'MMMM yyyy')}
@@ -171,9 +180,14 @@ const Calendar: React.FC<CalendarProps> = ({
         <IconButton 
           onClick={() => setCurrentDate(addMonths(currentDate, 1))}
           sx={{ 
-            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-            color: 'white',
-            '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+            backgroundColor: 'background.paper',
+            color: 'text.primary',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            '&:hover': { 
+              backgroundColor: 'action.hover',
+              transform: 'scale(1.05)'
+            },
+            transition: 'all 0.2s ease'
           }}
         >
           <ChevronRight />
@@ -181,36 +195,44 @@ const Calendar: React.FC<CalendarProps> = ({
       </Box>
 
       <Paper 
-        elevation={24} 
+        elevation={2} 
         sx={{ 
-          borderRadius: 4,
+          borderRadius: 2,
           overflow: 'hidden',
           backgroundColor: 'background.paper',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+          border: '1px solid',
+          borderColor: 'divider'
         }}
       >
         <Grid container>
-          {/* Day headers */}
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-            <Grid item xs key={day}>
-              <Box
-                sx={{
-                  p: 3,
-                  textAlign: 'center',
-                  borderBottom: '2px solid',
-                  borderColor: 'divider',
-                  backgroundColor: 'primary.main',
-                  color: 'white',
-                  fontWeight: 700,
-                  fontSize: '1.1rem',
-                }}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                  {day}
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
+          {/* Day headers with dates */}
+          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => {
+            const today = new Date();
+            const weekStart = startOfWeek(today);
+            const dayDate = new Date(weekStart);
+            dayDate.setDate(weekStart.getDate() + index);
+            
+            return (
+              <Grid item xs key={day}>
+                <Box
+                  sx={{
+                    p: 2,
+                    textAlign: 'center',
+                    borderBottom: '1px solid',
+                    borderColor: 'divider',
+                    backgroundColor: 'background.paper',
+                  }}
+                >
+                  <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.secondary', mb: 0.5 }}>
+                    {day}
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: 'text.disabled' }}>
+                    {format(dayDate, 'd')}
+                  </Typography>
+                </Box>
+              </Grid>
+            );
+          })}
 
           {/* Calendar days */}
           {calendarDays.map((day) => {
@@ -222,31 +244,31 @@ const Calendar: React.FC<CalendarProps> = ({
               <Grid item xs key={day.toISOString()}>
                 <Box
                   sx={{
-                    minHeight: 160,
-                    p: 2,
+                    minHeight: 120,
+                    p: 1.5,
                     borderBottom: '1px solid',
                     borderRight: '1px solid',
                     borderColor: 'divider',
                     backgroundColor: isToday ? 'primary.light' : 'background.paper',
                     cursor: 'pointer',
                     position: 'relative',
-                    transition: 'all 0.3s ease',
+                    transition: 'all 0.2s ease',
                     '&:hover': {
                       backgroundColor: isToday ? 'primary.main' : 'action.hover',
-                      transform: 'scale(1.02)',
+                      transform: 'scale(1.01)',
                       zIndex: 1,
-                      boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                     },
                   }}
                   onClick={() => handleDateClick(day)}
                 >
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
                     <Typography
-                      variant="h5"
+                      variant="h6"
                       sx={{
-                        fontWeight: isToday ? 700 : 600,
+                        fontWeight: isToday ? 700 : 500,
                         color: isCurrentMonth ? 'text.primary' : 'text.disabled',
-                        fontSize: isToday ? '1.5rem' : '1.2rem',
+                        fontSize: isToday ? '1.2rem' : '1rem',
                       }}
                     >
                       {format(day, 'd')}
@@ -255,15 +277,18 @@ const Calendar: React.FC<CalendarProps> = ({
                       size="small" 
                       sx={{ 
                         p: 0.5,
-                        backgroundColor: 'rgba(0,0,0,0.1)',
-                        '&:hover': { backgroundColor: 'rgba(0,0,0,0.2)' }
+                        opacity: 0.6,
+                        '&:hover': { 
+                          opacity: 1,
+                          backgroundColor: 'action.hover'
+                        }
                       }}
                     >
-                      <Add sx={{ fontSize: 18 }} />
+                      <Add sx={{ fontSize: 16 }} />
                     </IconButton>
                   </Box>
 
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     {dayEvents.slice(0, 2).map((event) => (
                       <Chip
                         key={event.id}
@@ -272,13 +297,12 @@ const Calendar: React.FC<CalendarProps> = ({
                         sx={{
                           backgroundColor: event.color,
                           color: 'white',
-                          fontSize: '0.75rem',
-                          height: 24,
-                          fontWeight: 500,
+                          fontSize: '0.7rem',
+                          height: 20,
+                          fontWeight: 400,
                           '&:hover': {
                             backgroundColor: event.color,
                             opacity: 0.9,
-                            transform: 'scale(1.05)',
                           },
                           transition: 'all 0.2s ease',
                         }}
@@ -293,12 +317,9 @@ const Calendar: React.FC<CalendarProps> = ({
                         variant="caption" 
                         sx={{ 
                           color: 'text.secondary',
-                          fontWeight: 500,
-                          backgroundColor: 'rgba(0,0,0,0.1)',
-                          px: 1,
-                          py: 0.5,
-                          borderRadius: 1,
-                          textAlign: 'center'
+                          fontSize: '0.65rem',
+                          textAlign: 'center',
+                          opacity: 0.8
                         }}
                       >
                         +{dayEvents.length - 2} more

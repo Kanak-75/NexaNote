@@ -148,21 +148,20 @@ const Notes: React.FC<NotesProps> = ({
 
   return (
     <Box sx={{ 
-      p: 4, 
+      p: 3, 
       height: '100%', 
       display: 'flex', 
       flexDirection: 'column',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      minHeight: '100vh'
+      backgroundColor: 'background.default',
+      overflow: 'auto'
     }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <Typography 
-          variant="h3" 
+          variant="h4" 
           sx={{ 
             flex: 1, 
-            fontWeight: 700, 
-            color: 'white',
-            textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            fontWeight: 600, 
+            color: 'text.primary',
             textAlign: 'center'
           }}
         >
@@ -172,11 +171,12 @@ const Notes: React.FC<NotesProps> = ({
           <IconButton 
             onClick={onToggleDarkMode}
             sx={{ 
-              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-              color: 'white', 
+              backgroundColor: 'background.paper',
+              color: 'text.primary',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
               '&:hover': { 
-                backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                transform: 'scale(1.1)'
+                backgroundColor: 'action.hover',
+                transform: 'scale(1.05)'
               },
               transition: 'all 0.2s ease',
             }}
@@ -186,11 +186,11 @@ const Notes: React.FC<NotesProps> = ({
           <IconButton 
             onClick={handleNewNote} 
             sx={{ 
-              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-              color: 'white', 
+              backgroundColor: 'primary.main',
+              color: 'white',
               '&:hover': { 
-                backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                transform: 'scale(1.1)'
+                backgroundColor: 'primary.dark',
+                transform: 'scale(1.05)'
               },
               transition: 'all 0.2s ease',
             }}
@@ -200,7 +200,7 @@ const Notes: React.FC<NotesProps> = ({
         </Box>
       </Box>
 
-      <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
+      <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
         <TextField
           placeholder="Search notes..."
           value={searchTerm}
@@ -208,11 +208,8 @@ const Notes: React.FC<NotesProps> = ({
           sx={{ 
             flex: 1,
             '& .MuiOutlinedInput-root': {
-              backgroundColor: 'rgba(255, 255, 255, 0.9)',
-              borderRadius: 3,
-              '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 1)',
-              }
+              backgroundColor: 'background.paper',
+              borderRadius: 2,
             }
           }}
           InputProps={{
@@ -220,16 +217,24 @@ const Notes: React.FC<NotesProps> = ({
           }}
         />
         <IconButton sx={{ 
-          backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-          color: 'white',
-          '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+          backgroundColor: 'background.paper',
+          color: 'text.primary',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          '&:hover': { 
+            backgroundColor: 'action.hover',
+            transform: 'scale(1.05)'
+          }
         }}>
           <Sort />
         </IconButton>
         <IconButton sx={{ 
-          backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-          color: 'white',
-          '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.3)' }
+          backgroundColor: 'background.paper',
+          color: 'text.primary',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          '&:hover': { 
+            backgroundColor: 'action.hover',
+            transform: 'scale(1.05)'
+          }
         }}>
           <FilterList />
         </IconButton>
@@ -240,19 +245,19 @@ const Notes: React.FC<NotesProps> = ({
           {filteredNotes.map((note) => (
             <Grid item xs={12} sm={6} md={4} key={note.id}>
               <Paper
-                elevation={8}
+                elevation={2}
                 sx={{
-                  p: 3,
+                  p: 2,
                   cursor: 'pointer',
-                  borderRadius: 3,
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: 2,
+                  backgroundColor: 'background.paper',
+                  border: '1px solid',
+                  borderColor: 'divider',
                   '&:hover': {
-                    elevation: 12,
-                    transform: 'translateY(-8px) scale(1.02)',
-                    transition: 'all 0.3s ease-in-out',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                    elevation: 4,
+                    transform: 'translateY(-2px)',
+                    transition: 'all 0.2s ease-in-out',
+                    boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
                   },
                 }}
                 onClick={() => handleNoteClick(note)}
