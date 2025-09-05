@@ -30,6 +30,8 @@ interface SidebarProps {
   onClose: () => void;
   onItemClick: (item: SidebarItem) => void;
   darkMode: boolean;
+  onSettingsClick: () => void;
+  onQuickNotesClick: () => void;
 }
 
 const defaultItems: SidebarItem[] = [
@@ -78,7 +80,7 @@ const getIcon = (iconName: string) => {
   }
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode }) => {
+const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode, onSettingsClick, onQuickNotesClick }) => {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 
   const handleItemClick = (item: SidebarItem) => {
@@ -175,15 +177,19 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode 
         
         <List>
           <ListItem disablePadding>
-            <ListItemButton sx={{ minHeight: 48, px: 2.5 }}>
+            <ListItemButton 
+              sx={{ minHeight: 48, px: 2.5 }}
+              onClick={onQuickNotesClick}
+            >
               <ListItemIcon sx={{ minWidth: 40 }}>
-                <Star sx={{ fontSize: 20, color: '#666' }} />
+                <Star sx={{ fontSize: 20, color: darkMode ? '#b0b0b0' : '#666' }} />
               </ListItemIcon>
               <ListItemText
                 primary="Quick Notes"
                 primaryTypographyProps={{
                   fontSize: 14,
                   fontWeight: 500,
+                  color: darkMode ? '#b0b0b0' : '#666',
                 }}
               />
             </ListItemButton>
@@ -194,15 +200,19 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode 
         
         <List>
           <ListItem disablePadding>
-            <ListItemButton sx={{ minHeight: 48, px: 2.5 }}>
+            <ListItemButton 
+              sx={{ minHeight: 48, px: 2.5 }}
+              onClick={onSettingsClick}
+            >
               <ListItemIcon sx={{ minWidth: 40 }}>
-                <Settings sx={{ fontSize: 20, color: '#666' }} />
+                <Settings sx={{ fontSize: 20, color: darkMode ? '#b0b0b0' : '#666' }} />
               </ListItemIcon>
               <ListItemText
                 primary="Settings"
                 primaryTypographyProps={{
                   fontSize: 14,
                   fontWeight: 500,
+                  color: darkMode ? '#b0b0b0' : '#666',
                 }}
               />
             </ListItemButton>

@@ -35,6 +35,8 @@ interface NotesProps {
   onNoteAdd: (note: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>) => void;
   onNoteEdit: (note: Note) => void;
   onNoteDelete: (noteId: string) => void;
+  darkMode: boolean;
+  onToggleDarkMode: () => void;
 }
 
 const Notes: React.FC<NotesProps> = ({
@@ -42,6 +44,8 @@ const Notes: React.FC<NotesProps> = ({
   onNoteAdd,
   onNoteEdit,
   onNoteDelete,
+  darkMode,
+  onToggleDarkMode,
 }) => {
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -164,21 +168,36 @@ const Notes: React.FC<NotesProps> = ({
         >
           Notes
         </Typography>
-        <IconButton 
-          onClick={handleNewNote} 
-          sx={{ 
-            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-            color: 'white', 
-            '&:hover': { 
-              backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              transform: 'scale(1.1)'
-            },
-            transition: 'all 0.2s ease',
-            ml: 2
-          }}
-        >
-          <Add />
-        </IconButton>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <IconButton 
+            onClick={onToggleDarkMode}
+            sx={{ 
+              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+              color: 'white', 
+              '&:hover': { 
+                backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                transform: 'scale(1.1)'
+              },
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {darkMode ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
+          <IconButton 
+            onClick={handleNewNote} 
+            sx={{ 
+              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+              color: 'white', 
+              '&:hover': { 
+                backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                transform: 'scale(1.1)'
+              },
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <Add />
+          </IconButton>
+        </Box>
       </Box>
 
       <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>

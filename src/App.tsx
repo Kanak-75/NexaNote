@@ -274,6 +274,8 @@ function App() {
             onNoteAdd={handleNoteAdd}
             onNoteEdit={handleNoteEdit}
             onNoteDelete={handleNoteDelete}
+            darkMode={darkMode}
+            onToggleDarkMode={toggleDarkMode}
           />
         );
       case 'tasks':
