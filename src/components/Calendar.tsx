@@ -156,7 +156,7 @@ const Calendar: React.FC<CalendarProps> = ({
       backgroundColor: 'background.default',
       overflow: 'auto'
     }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, pr: 7 }}>
         <IconButton 
           onClick={() => setCurrentDate(subMonths(currentDate, 1))}
           sx={{ 
@@ -182,7 +182,7 @@ const Calendar: React.FC<CalendarProps> = ({
             fontFamily: 'Quicksand, Roboto, Helvetica, Arial, sans-serif'
           }}
         >
-          {format(currentDate, 'MMMM yyyy')}
+          🎀 {format(currentDate, 'MMMM yyyy')} 🎀
         </Typography>
         <IconButton 
           onClick={() => setCurrentDate(addMonths(currentDate, 1))}
