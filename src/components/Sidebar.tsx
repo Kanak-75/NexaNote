@@ -158,8 +158,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, onItemClick, darkMode,
     >
       <Box sx={{ overflow: 'auto', height: '100%' }}>
         <Box sx={{ p: 2, borderBottom: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)' }}>
-          <Typography variant="h6" sx={{ fontWeight: 600, color: darkMode ? '#f1f5f9' : '#1e293b' }}>
-            Notion-like Calendar
+          <Typography variant="h6" sx={{ fontWeight: 700, color: darkMode ? '#f1f5f9' : '#1e293b', fontFamily: 'Quicksand, Roboto, Helvetica, Arial, sans-serif' }}>
+            🎀 NexaNote
           </Typography>
         </Box>
         

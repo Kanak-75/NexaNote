@@ -342,9 +342,12 @@ function App() {
             <Box
               sx={{
                 position: 'absolute',
-                bottom: 16,
+                top: 16,
                 right: 16,
                 zIndex: 1000,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
               }}
             >
               <Tooltip title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>

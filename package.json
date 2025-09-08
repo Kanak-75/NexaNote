@@ -1,7 +1,7 @@
 {
-  "name": "notion-like-calendar",
+  "name": "nexanote",
   "version": "1.0.0",
-  "description": "A Notion-like project with calendar functionality",
+  "description": "NexaNote - notes, tasks, and calendar",
   "private": true,
   "dependencies": {
     "@types/node": "^18.15.0",

@@ -91,14 +91,27 @@ const Dashboard: React.FC<DashboardProps> = ({
       <Typography 
         variant="h4" 
         sx={{ 
-          mb: 3, 
-          fontWeight: 600, 
+          mb: 2, 
+          fontWeight: 700, 
           color: 'text.primary',
-          textAlign: 'center'
+          textAlign: 'center',
+          fontFamily: 'Quicksand, Roboto, Helvetica, Arial, sans-serif'
         }}
       >
-        Dashboard
+        🎀 NexaNote
       </Typography>
+
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1.5, mb: 3 }}>
+        <Button variant="contained" color="secondary" onClick={() => onEventClick && onEventClick({} as any)} sx={{ textTransform: 'none' }}>
+          Go to Calendar
+        </Button>
+        <Button variant="outlined" onClick={() => onNoteClick && onNoteClick({} as any)} sx={{ textTransform: 'none' }}>
+          Open Notes
+        </Button>
+        <Button variant="outlined" onClick={() => onTaskClick && onTaskClick({} as any)} sx={{ textTransform: 'none' }}>
+          View Tasks
+        </Button>
+      </Box>
 
       <Grid container spacing={3}>
         {/* Stats Cards */}

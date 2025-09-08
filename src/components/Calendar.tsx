@@ -24,7 +24,7 @@ import {
   Add,
   Event,
 } from '@mui/icons-material';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths, startOfWeek, endOfWeek } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, addMonths, subMonths, getDay } from 'date-fns';
 import { CalendarEvent } from '../types';
 
 interface CalendarProps {
@@ -56,9 +56,15 @@ const Calendar: React.FC<CalendarProps> = ({
   });
 
   const calendarDays = useMemo(() => {
-    const start = startOfWeek(startOfMonth(currentDate));
-    const end = endOfWeek(endOfMonth(currentDate));
-    return eachDayOfInterval({ start, end });
+    const monthStart = startOfMonth(currentDate);
+    const monthEnd = endOfMonth(currentDate);
+    const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
+    const startWeekday = getDay(monthStart); // 0 (Sun) - 6 (Sat)
+    const leadingBlanks = Array.from({ length: startWeekday }, () => null);
+    const totalCells = leadingBlanks.length + daysInMonth.length;
+    const trailingBlanksCount = (7 - (totalCells % 7)) % 7;
+    const trailingBlanks = Array.from({ length: trailingBlanksCount }, () => null);
+    return [...leadingBlanks, ...daysInMonth, ...trailingBlanks];
   }, [currentDate]);
 
   const getEventsForDate = (date: Date) => {
@@ -206,91 +212,85 @@ const Calendar: React.FC<CalendarProps> = ({
         }}
       >
         <Grid container>
-          {/* Day headers with dates */}
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => {
-            const today = new Date();
-            const weekStart = startOfWeek(today);
-            const dayDate = new Date(weekStart);
-            dayDate.setDate(weekStart.getDate() + index);
-            
-            return (
-              <Grid item xs key={day}>
-                <Box
-                  sx={{
-                    p: 2.5,
-                    textAlign: 'center',
-                    borderBottom: '2px solid',
-                    borderColor: '#ecc8af',
-                    backgroundColor: '#ffffff',
-                  }}
-                >
-                  <Typography variant="body2" sx={{ fontWeight: 700, color: '#895737', letterSpacing: 1, mb: 0.5 }}>
-                    {day}
-                  </Typography>
-                  <Typography variant="caption" sx={{ color: '#b0c4b1' }}>
-                    {format(dayDate, 'd')}
-                  </Typography>
-                </Box>
-              </Grid>
-            );
-          })}
+          {/* Day headers */}
+          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+            <Grid item xs key={day}>
+              <Box
+                sx={{
+                  p: 2.5,
+                  textAlign: 'center',
+                  borderBottom: '2px solid',
+                  borderColor: '#ecc8af',
+                  backgroundColor: '#ffffff',
+                }}
+              >
+                <Typography variant="body2" sx={{ fontWeight: 700, color: '#895737', letterSpacing: 1 }}>
+                  {day}
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
 
-          {/* Calendar days */}
-          {calendarDays.map((day) => {
-            const dayEvents = getEventsForDate(day);
-            const isCurrentMonth = isSameMonth(day, currentDate);
-            const isToday = isSameDay(day, new Date());
+          {/* Calendar days - aligned under headers, blanks for outside-month */}
+          {calendarDays.map((day, idx) => {
+            const isBlank = day === null;
+            const isToday = !isBlank && isSameDay(day as Date, new Date());
+            const dayDate = day as Date;
+            const dayEvents = isBlank ? [] : getEventsForDate(dayDate);
 
             return (
-              <Grid item xs key={day.toISOString()}>
+              <Grid item xs key={isBlank ? `blank-${idx}` : dayDate.toISOString()}>
                 <Box
                   sx={{
-                    minHeight: 160,
+                    minHeight: 180,
                     p: 2,
                     borderBottom: '1px solid',
                     borderRight: '1px solid',
                     borderColor: '#ecc8af',
-                    backgroundColor: isToday ? '#ffece4' : '#ffffff',
+                    backgroundColor: isBlank ? '#ffffff' : (isToday ? '#ffece4' : '#ffffff'),
                     cursor: 'pointer',
                     position: 'relative',
                     transition: 'all 0.2s ease',
                     '&:hover': {
-                      backgroundColor: isToday ? '#e7ad99' : '#f6f9f8',
+                      backgroundColor: isBlank ? '#ffffff' : (isToday ? '#e7ad99' : '#f6f9f8'),
                       transform: 'scale(1.01)',
                       zIndex: 1,
                       boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                     },
                   }}
-                  onClick={() => handleDateClick(day)}
+                  onClick={() => !isBlank && handleDateClick(dayDate)}
                 >
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                    <Typography
-                      variant="h5"
-                      sx={{
-                        fontWeight: isToday ? 800 : 600,
-                        color: isCurrentMonth ? '#242423' : '#b0c4b1',
-                        fontSize: isToday ? '1.2rem' : '1rem',
-                      }}
-                    >
-                      {format(day, 'd')}
-                    </Typography>
-                    <IconButton 
-                      size="small" 
-                      sx={{ 
-                        p: 0.5,
-                        opacity: 0.7,
-                        '&:hover': { 
-                          opacity: 1,
-                          backgroundColor: '#cce3de'
-                        }
-                      }}
-                    >
-                      <Add sx={{ fontSize: 16 }} />
-                    </IconButton>
-                  </Box>
+                  {!isBlank && (
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          fontWeight: isToday ? 800 : 600,
+                          color: '#242423',
+                          fontSize: isToday ? '1.2rem' : '1rem',
+                        }}
+                      >
+                        {format(dayDate, 'd')}
+                      </Typography>
+                      <IconButton 
+                        size="small" 
+                        sx={{ 
+                          p: 0.5,
+                          opacity: 0.7,
+                          '&:hover': { 
+                            opacity: 1,
+                            backgroundColor: '#cce3de'
+                          }
+                        }}
+                      >
+                        <Add sx={{ fontSize: 16 }} />
+                      </IconButton>
+                    </Box>
+                  )}
 
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                    {dayEvents.slice(0, 2).map((event) => (
+                  {!isBlank && (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                      {dayEvents.slice(0, 2).map((event) => (
                       <Chip
                         key={event.id}
                         label={event.title}
@@ -312,8 +312,8 @@ const Calendar: React.FC<CalendarProps> = ({
                           handleEventClick(event);
                         }}
                       />
-                    ))}
-                    {dayEvents.length > 2 && (
+                      ))}
+                      {dayEvents.length > 2 && (
                       <Typography 
                         variant="caption" 
                         sx={{ 
@@ -325,8 +325,9 @@ const Calendar: React.FC<CalendarProps> = ({
                       >
                         +{dayEvents.length - 2} more
                       </Typography>
-                    )}
-                  </Box>
+                      )}
+                    </Box>
+                  )}
                 </Box>
               </Grid>
             );
