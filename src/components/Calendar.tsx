@@ -167,12 +167,13 @@ const Calendar: React.FC<CalendarProps> = ({
           <ChevronLeft />
         </IconButton>
         <Typography 
-          variant="h4" 
+          variant="h3" 
           sx={{ 
             flex: 1, 
             textAlign: 'center', 
             fontWeight: 700, 
-            color: '#242423'
+            color: '#242423',
+            fontFamily: 'Quicksand, Roboto, Helvetica, Arial, sans-serif'
           }}
         >
           {format(currentDate, 'MMMM yyyy')}
@@ -216,7 +217,7 @@ const Calendar: React.FC<CalendarProps> = ({
               <Grid item xs key={day}>
                 <Box
                   sx={{
-                    p: 2,
+                    p: 2.5,
                     textAlign: 'center',
                     borderBottom: '2px solid',
                     borderColor: '#ecc8af',
@@ -244,8 +245,8 @@ const Calendar: React.FC<CalendarProps> = ({
               <Grid item xs key={day.toISOString()}>
                 <Box
                   sx={{
-                    minHeight: 120,
-                    p: 1.5,
+                    minHeight: 160,
+                    p: 2,
                     borderBottom: '1px solid',
                     borderRight: '1px solid',
                     borderColor: '#ecc8af',
@@ -264,7 +265,7 @@ const Calendar: React.FC<CalendarProps> = ({
                 >
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
                     <Typography
-                      variant="h6"
+                      variant="h5"
                       sx={{
                         fontWeight: isToday ? 800 : 600,
                         color: isCurrentMonth ? '#242423' : '#b0c4b1',

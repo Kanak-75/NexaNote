@@ -342,7 +342,7 @@ function App() {
             <Box
               sx={{
                 position: 'absolute',
-                top: 16,
+                bottom: 16,
                 right: 16,
                 zIndex: 1000,
               }}
