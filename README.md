@@ -1,4 +1,4 @@
-# Notion-like Calendar
+# NexaNote
 
 A modern, feature-rich productivity application inspired by Notion, with comprehensive calendar functionality, task management, and note-taking capabilities.
 
