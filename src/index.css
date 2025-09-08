@@ -10,7 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
+  background-color: #cce3de; /* soft canvas */
 }
 
 code {
@@ -22,4 +22,15 @@ code {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Subtle app-wide accent helpers matching the palette */
+.accent-border {
+  border-color: #ecc8af !important;
+}
+.accent-text {
+  color: #242423 !important;
+}
+.muted-text {
+  color: #895737 !important;
 }

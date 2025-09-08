@@ -154,11 +154,11 @@ const Calendar: React.FC<CalendarProps> = ({
         <IconButton 
           onClick={() => setCurrentDate(subMonths(currentDate, 1))}
           sx={{ 
-            backgroundColor: 'background.paper',
-            color: 'text.primary',
+            backgroundColor: '#ffffff',
+            color: '#242423',
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
             '&:hover': { 
-              backgroundColor: 'action.hover',
+              backgroundColor: '#ecc8af',
               transform: 'scale(1.05)'
             },
             transition: 'all 0.2s ease'
@@ -171,8 +171,8 @@ const Calendar: React.FC<CalendarProps> = ({
           sx={{ 
             flex: 1, 
             textAlign: 'center', 
-            fontWeight: 600, 
-            color: 'text.primary'
+            fontWeight: 700, 
+            color: '#242423'
           }}
         >
           {format(currentDate, 'MMMM yyyy')}
@@ -180,11 +180,11 @@ const Calendar: React.FC<CalendarProps> = ({
         <IconButton 
           onClick={() => setCurrentDate(addMonths(currentDate, 1))}
           sx={{ 
-            backgroundColor: 'background.paper',
-            color: 'text.primary',
+            backgroundColor: '#ffffff',
+            color: '#242423',
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
             '&:hover': { 
-              backgroundColor: 'action.hover',
+              backgroundColor: '#ecc8af',
               transform: 'scale(1.05)'
             },
             transition: 'all 0.2s ease'
@@ -197,11 +197,11 @@ const Calendar: React.FC<CalendarProps> = ({
       <Paper 
         elevation={2} 
         sx={{ 
-          borderRadius: 2,
+          borderRadius: 4,
           overflow: 'hidden',
-          backgroundColor: 'background.paper',
-          border: '1px solid',
-          borderColor: 'divider'
+          backgroundColor: '#ffffff',
+          border: '2px solid',
+          borderColor: '#ecc8af'
         }}
       >
         <Grid container>
@@ -218,15 +218,15 @@ const Calendar: React.FC<CalendarProps> = ({
                   sx={{
                     p: 2,
                     textAlign: 'center',
-                    borderBottom: '1px solid',
-                    borderColor: 'divider',
-                    backgroundColor: 'background.paper',
+                    borderBottom: '2px solid',
+                    borderColor: '#ecc8af',
+                    backgroundColor: '#ffffff',
                   }}
                 >
-                  <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.secondary', mb: 0.5 }}>
+                  <Typography variant="body2" sx={{ fontWeight: 700, color: '#895737', letterSpacing: 1, mb: 0.5 }}>
                     {day}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: 'text.disabled' }}>
+                  <Typography variant="caption" sx={{ color: '#b0c4b1' }}>
                     {format(dayDate, 'd')}
                   </Typography>
                 </Box>
@@ -248,13 +248,13 @@ const Calendar: React.FC<CalendarProps> = ({
                     p: 1.5,
                     borderBottom: '1px solid',
                     borderRight: '1px solid',
-                    borderColor: 'divider',
-                    backgroundColor: isToday ? 'primary.light' : 'background.paper',
+                    borderColor: '#ecc8af',
+                    backgroundColor: isToday ? '#ffece4' : '#ffffff',
                     cursor: 'pointer',
                     position: 'relative',
                     transition: 'all 0.2s ease',
                     '&:hover': {
-                      backgroundColor: isToday ? 'primary.main' : 'action.hover',
+                      backgroundColor: isToday ? '#e7ad99' : '#f6f9f8',
                       transform: 'scale(1.01)',
                       zIndex: 1,
                       boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -266,8 +266,8 @@ const Calendar: React.FC<CalendarProps> = ({
                     <Typography
                       variant="h6"
                       sx={{
-                        fontWeight: isToday ? 700 : 500,
-                        color: isCurrentMonth ? 'text.primary' : 'text.disabled',
+                        fontWeight: isToday ? 800 : 600,
+                        color: isCurrentMonth ? '#242423' : '#b0c4b1',
                         fontSize: isToday ? '1.2rem' : '1rem',
                       }}
                     >
@@ -277,10 +277,10 @@ const Calendar: React.FC<CalendarProps> = ({
                       size="small" 
                       sx={{ 
                         p: 0.5,
-                        opacity: 0.6,
+                        opacity: 0.7,
                         '&:hover': { 
                           opacity: 1,
-                          backgroundColor: 'action.hover'
+                          backgroundColor: '#cce3de'
                         }
                       }}
                     >
@@ -296,7 +296,7 @@ const Calendar: React.FC<CalendarProps> = ({
                         size="small"
                         sx={{
                           backgroundColor: event.color,
-                          color: 'white',
+                          color: '#ffffff',
                           fontSize: '0.7rem',
                           height: 20,
                           fontWeight: 400,
@@ -316,7 +316,7 @@ const Calendar: React.FC<CalendarProps> = ({
                       <Typography 
                         variant="caption" 
                         sx={{ 
-                          color: 'text.secondary',
+                          color: '#895737',
                           fontSize: '0.65rem',
                           textAlign: 'center',
                           opacity: 0.8

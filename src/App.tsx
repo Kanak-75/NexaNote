@@ -15,18 +15,19 @@ const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#6366f1',
+      main: '#e7ad99', // warm blush accent
     },
     secondary: {
-      main: '#8b5cf6',
+      main: '#b0c4b1', // sage
     },
     background: {
-      default: '#f8fafc',
+      default: '#cce3de', // soft mint canvas
       paper: '#ffffff',
     },
+    divider: '#ecc8af',
     text: {
-      primary: '#1e293b',
-      secondary: '#64748b',
+      primary: '#242423',
+      secondary: '#895737',
     },
   },
   typography: {
@@ -71,18 +72,19 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#818cf8',
+      main: '#e7ad99',
     },
     secondary: {
-      main: '#a78bfa',
+      main: '#b0c4b1',
     },
     background: {
-      default: '#0f172a',
-      paper: '#1e293b',
+      default: '#242423',
+      paper: '#2e2e2e',
     },
+    divider: '#895737',
     text: {
-      primary: '#f1f5f9',
-      secondary: '#94a3b8',
+      primary: '#cce3de',
+      secondary: '#b0c4b1',
     },
   },
   typography: {
