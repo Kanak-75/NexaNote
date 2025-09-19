@@ -9,6 +9,7 @@ import Notes from './components/Notes';
 import Tasks from './components/Tasks';
 import Settings from './components/Settings';
 import QuickNotes from './components/QuickNotes';
+import EmailReminder from './components/EmailReminder';
 import { Task, Note, CalendarEvent, SidebarItem } from './types';
 
 const lightTheme = createTheme({
@@ -301,6 +302,10 @@ function App() {
             onTaskDelete={handleTaskDelete}
             onTaskToggle={handleTaskToggle}
           />
+        );
+      case 'email':
+        return (
+          <EmailReminder />
         );
       default:
         return (

@@ -40,6 +40,59 @@ A modern, feature-rich productivity application inspired by Notion, with compreh
 - **Smooth Animations**: Polished user experience
 - **Intuitive Navigation**: Easy-to-use sidebar navigation
 
+## Email Reminder (SMTP)
+
+This app includes an Email Reminder feature that can send emails now or schedule them for a later date/time using SMTP (Gmail-ready).
+
+### Backend (Flask)
+
+Location: `backend/`
+
+1) Setup and run:
+
+```
+cd backend
+python -m venv .venv
+.venv\\Scripts\\activate
+pip install -r requirements.txt
+```
+
+2) Configure email settings by creating `.env` file:
+
+```
+cp env.example .env
+# Edit .env with your Gmail credentials
+```
+
+For Gmail setup:
+- Enable 2-Factor Authentication
+- Generate an App Password (not your regular password)
+- Use the App Password in `.env` as `EMAIL_PASSWORD`
+
+3) Run the API:
+
+```
+python app.py
+```
+
+4) Endpoints:
+- POST `/api/email/send` — `{ receiverEmail, subject?, body? }`
+- POST `/api/email/schedule` — `{ receiverEmail, subject?, body?, runAtIso }`
+
+Scheduling uses a background thread for demo purposes. For production, use a persistent scheduler (APScheduler/Celery).
+
+### Frontend
+
+`package.json` proxies to `http://localhost:5000`. Start the React app via `
+npm start`, then open the sidebar item "Email Reminder" to use the form.
+
+**User Experience**: Users only need to enter:
+- Recipient email address
+- Message content
+- Optional: subject and schedule time
+
+All SMTP configuration is handled server-side.
+
 ## Technology Stack
 
 - **React 18**: Modern React with hooks and functional components

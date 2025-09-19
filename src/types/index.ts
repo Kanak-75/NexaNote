@@ -44,3 +44,12 @@ export interface SidebarItem {
   type: 'page' | 'database' | 'calendar' | 'notes';
   children?: SidebarItem[];
 }
+
+export interface EmailScheduleRequest {
+  senderEmail?: string;
+  senderPassword?: string;
+  receiverEmail: string;
+  subject?: string;
+  body?: string;
+  runAtIso: string;
+}

@@ -59,6 +59,12 @@ const defaultItems: SidebarItem[] = [
     icon: 'dashboard',
     type: 'database',
   },
+  {
+    id: 'email',
+    title: 'Email Reminder',
+    icon: 'star',
+    type: 'page',
+  },
 ];
 
 const getIcon = (iconName: string) => {
