@@ -22,6 +22,7 @@ import {
   Folder,
   Star,
   Settings,
+  AutoAwesome,
 } from '@mui/icons-material';
 import { SidebarItem } from '../types';
 
@@ -65,6 +66,12 @@ const defaultItems: SidebarItem[] = [
     icon: 'star',
     type: 'page',
   },
+  {
+    id: 'ai-scheduler',
+    title: 'AI Scheduler',
+    icon: 'autoAwesome',
+    type: 'page',
+  },
 ];
 
 const getIcon = (iconName: string) => {
@@ -81,6 +88,8 @@ const getIcon = (iconName: string) => {
       return <Star />;
     case 'settings':
       return <Settings />;
+    case 'autoAwesome':
+      return <AutoAwesome />;
     default:
       return <Dashboard />;
   }

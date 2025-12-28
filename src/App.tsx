@@ -10,6 +10,7 @@ import Tasks from './components/Tasks';
 import Settings from './components/Settings';
 import QuickNotes from './components/QuickNotes';
 import EmailReminder from './components/EmailReminder';
+import AIScheduler from './components/AIScheduler';
 import { Task, Note, CalendarEvent, SidebarItem } from './types';
 
 const lightTheme = createTheme({
@@ -306,6 +307,10 @@ function App() {
       case 'email':
         return (
           <EmailReminder />
+        );
+      case 'ai-scheduler':
+        return (
+          <AIScheduler />
         );
       default:
         return (
