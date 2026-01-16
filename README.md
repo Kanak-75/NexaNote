@@ -193,6 +193,8 @@ This project is open source and available under the MIT License.
 - [ ] Mobile app version
 
 Email Notification Module
+
+
 The email sending feature is currently under development and being enhanced for better reliability and scalability. This improvement is part of an ongoing refactor and will be completed in a future update.
 
 Until then, enjoy and keep taking notes on Nexa Note.
